@@ -57,7 +57,8 @@ func init() {
 
 func main() {
 	var ping time.Duration
-	var speed, vpnLowestLatency int
+	var speed int
+	var vpnLowestLatency *vpngate.VPN
 
 	c := &http.Client{}
 	ping = time.Millisecond * time.Duration(latency)
@@ -69,29 +70,29 @@ func main() {
 	}
 
 	fmt.Println("looking for low latent endpoints...")
-	for item, vpn := range vpns {
+	for _, vpn := range vpns {
 		if proto == "any" {
 			if vpn.Ping <= ping && vpn.Speed > speed {
 				if ok := rawconnect(vpn.IP, strconv.Itoa(vpn.Port), vpn.Proto); ok {
-					vpnLowestLatency = item
+					vpnLowestLatency = vpn
 				}
 			}
 		} else {
 			if vpn.Ping <= ping && vpn.Speed > speed && vpn.Proto == proto {
 				if ok := rawconnect(vpn.IP, strconv.Itoa(vpn.Port), vpn.Proto); ok {
-					vpnLowestLatency = item
+					vpnLowestLatency = vpn
 				}
 			}
 		}
 
 	}
 
-	if vpnLowestLatency == 0 {
+	if vpnLowestLatency == nil {
 		panic("no vpn found")
 	}
 
-	fmt.Printf("Found one low latent vpn: %s[%s/%v] in %s\n", vpns[vpnLowestLatency].IP, vpns[vpnLowestLatency].Proto, vpns[vpnLowestLatency].Port, vpns[vpnLowestLatency].Country)
-	err = ioutil.WriteFile("/tmp/vpn.config", []byte(vpns[vpnLowestLatency].OpenVPN()), 0644)
+	fmt.Printf("Found one low latent vpn: %s[%s/%v] in %s\n", vpnLowestLatency.IP, vpnLowestLatency.Proto, vpnLowestLatency.Port, vpnLowestLatency.Country)
+	err = ioutil.WriteFile("/tmp/vpn.config", []byte(vpnLowestLatency.OpenVPN()), 0644)
 	if err != nil {
 		panic(err)
 	}
