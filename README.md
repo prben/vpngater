@@ -12,3 +12,6 @@ Fetches preferred OpenVPN host file from VPNGate project and configures the same
      -proto string
         Preferred Protocol - tcp/udp/any (default "any")
 
+## Downloads
+Releases - 
+https://github.com/prben/vpngatefetcher/releases
