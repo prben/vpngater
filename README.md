@@ -2,7 +2,7 @@
 
 Fetches preferred !!FREE!! highspeed OpenVPN hosts file from VPNGate project and configures the same for your machine.
 
-## Usage of vpngate:
+## Usage of vpngater:
     -latency int
         Minimum latency of VPN (ms) (default 40)
     -minSpeed int
