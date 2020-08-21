@@ -1,0 +1,2 @@
+# github.com/jianfeng6909/vpngate v0.0.0-20140112173306-f4056ca230cd
+github.com/jianfeng6909/vpngate
