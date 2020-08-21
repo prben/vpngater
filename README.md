@@ -1,6 +1,6 @@
-# vpngatefetcher
+# vpngater
 
-Fetches preferred OpenVPN host file from VPNGate project and configures the same for your machine.
+Fetches preferred highspeed OpenVPN hosts file from VPNGate project and configures the same for your machine.
 
 ## Usage of vpngate:
     -latency int
