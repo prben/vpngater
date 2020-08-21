@@ -15,3 +15,7 @@ Fetches preferred !!FREE!! highspeed OpenVPN hosts file from VPNGate project and
 ## Downloads
 Releases - 
 https://github.com/prben/vpngatefetcher/releases
+
+
+## Linux Priveleges
+On Linux systems, you might need to run vpngater as root to allow it to run openvpn binary as root privileges.
