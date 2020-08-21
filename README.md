@@ -1,6 +1,6 @@
 # vpngater
 
-Fetches preferred highspeed OpenVPN hosts file from VPNGate project and configures the same for your machine.
+Fetches preferred !!FREE!! highspeed OpenVPN hosts file from VPNGate project and configures the same for your machine.
 
 ## Usage of vpngate:
     -latency int
