@@ -69,7 +69,7 @@ func main() {
 		panic(err)
 	}
 
-	fmt.Println("looking for low latent endpoints...")
+	fmt.Println("looking for low latent endpoints ( This might take a while )...")
 	for _, vpn := range vpns {
 		if proto == "any" {
 			if vpn.Ping <= ping && vpn.Speed > speed {
@@ -120,7 +120,7 @@ func openvpn(openvpnBin string) {
 	cmd := exec.Command(openvpnBin, "--config", "/tmp/vpn.config")
 	cmd.Stdout = &out
 
-	fmt.Printf("Starting OpenVPN...\n")
+	fmt.Printf("\nStarting OpenVPN...\n")
 	err := cmd.Start()
 	if err != nil {
 		log.Fatal(err)
