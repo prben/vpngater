@@ -34,12 +34,13 @@ import (
 )
 
 var (
-	openvpnBin, proto string
-	latency           int64
-	minSpeed          int
+	openvpnBin, proto, country string
+	latency                    int64
+	minSpeed                   int
 )
 
 func init() {
+	flag.StringVar(&country, "country", "JP", "Preferred Country code of VPN server")
 	flag.StringVar(&openvpnBin, "openvpnBin", "/usr/sbin/openvpn", "Mention path of OpenVPN binary")
 	flag.StringVar(&proto, "proto", "any", "Preferred Protocol - tcp/udp/any")
 	flag.IntVar(&minSpeed, "minSpeed", 40, "Minimum speed of VPN (Mbps)")
@@ -72,19 +73,18 @@ func main() {
 	fmt.Println("looking for low latent endpoints ( This might take a while )...")
 	for _, vpn := range vpns {
 		if proto == "any" {
-			if vpn.Ping <= ping && vpn.Speed > speed {
+			if vpn.Ping <= ping && vpn.Speed > speed && vpn.CountryShort == country {
 				if ok := rawconnect(vpn.IP, strconv.Itoa(vpn.Port), vpn.Proto); ok {
 					vpnLowestLatency = vpn
 				}
 			}
 		} else {
-			if vpn.Ping <= ping && vpn.Speed > speed && vpn.Proto == proto {
+			if vpn.Ping <= ping && vpn.Speed > speed && vpn.CountryShort == country && vpn.Proto == proto {
 				if ok := rawconnect(vpn.IP, strconv.Itoa(vpn.Port), vpn.Proto); ok {
 					vpnLowestLatency = vpn
 				}
 			}
 		}
-
 	}
 
 	if vpnLowestLatency == nil {
